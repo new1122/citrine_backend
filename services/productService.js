@@ -20,9 +20,14 @@ const createProduct = async (product) => {
 };  
 
 const fetchCategories = async () => {
-  // return array of strings
-  const result = await productRepo.getCategories();
-  return result.map(row => row.category); // [{category:"Electronics"}] → ["Electronics"]
+  try {
+    const categories = await productRepo.getCategories(); // returns ['Bathroom']
+    console.log("Raw DB result in service:", categories);
+    return categories; // <-- RETURN here!
+  } catch (err) {
+    console.error("Error in fetchCategories:", err);
+    throw err;
+  }
 };
 
 
