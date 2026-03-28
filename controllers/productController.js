@@ -43,8 +43,8 @@ const getCategories = async (req, res) => {
     const categories = await productService.fetchCategories();
     res.json(categories);
   } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
+    console.error("Error in getCategories:", err);
+    res.status(500).json({ error: "Server error" });
   }
 };
 const addProduct = async (req, res) => {
