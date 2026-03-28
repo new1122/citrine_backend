@@ -79,16 +79,16 @@ const insertProduct = (product) => {
   });
 
 }
-  const getCategories = () => {
-  return new Promise((resolve, reject) => {
-    db.query("SELECT DISTINCT category FROM products", (err, result) => {
-      if (err) reject(err);
-      else resolve(result);
-    });
-  });
+const getCategories = async () => {
+  try {
+    const [rows] = await db.query("SELECT DISTINCT category FROM products");
+    console.log("DB query result:", rows);
+    return rows.map(row => row.category);
+  } catch (err) {
+    console.error("DB query error:", err);
+    throw err;
+  }
 };
-
-
 
 module.exports = {
   getAllProducts,
